@@ -1,0 +1,39 @@
+---
+- name: Used to download and install go
+  hosts: "{{ vmname }}"
+
+  tasks:
+  - name: Download and unarchive
+    become: yes
+    unarchive:
+      src: "https://go.dev/dl/go1.18.1.linux-s390x.tar.gz"
+      dest: "/usr/local/"
+      mode: 0755
+      remote_src: yes
+    register: "GO"
+    when: "{{ansible_architecture == 's390x'}}"
+
+  - name: Download and unarchive
+    become: yes
+    unarchive:
+      src: "https://go.dev/dl/go1.18.1.linux-s390x.tar.gz"
+      dest: "/usr/local/"
+      mode: 0755
+      remote_src: yes
+    register: "GO"
+    when: "{{ansible_architecture == 'ppc64le'}}"
+
+  - name: Download and unarchive
+    become: yes
+    unarchive:
+      src: "https://go.dev/dl/go1.18.1.linux-s390x.tar.gz"
+      dest: "/usr/local/"
+      mode: 0755
+      remote_src: yes
+    register: "GO"
+    when: "{{ansible_architecture == 'x86'}}"
+
+  - name: Set path
+    become: yes
+    shell: export PATH=$PATH:/usr/local/go/bin
+
