@@ -1,7 +1,7 @@
 ---
 - name: Used to download and install go
-  hosts: "{{ vmname }}"
-
+  hosts: all
+  gather_facts: true
   tasks:
   - name: Download and unarchive
     become: yes
